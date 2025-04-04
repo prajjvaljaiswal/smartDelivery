@@ -1,5 +1,4 @@
 import express from 'express';
-import Partner from '../models/partner.js';
 import { createPartner, getPartners, updatePartner, deletePartner, viewPartner } from '../controllers/partnerController.js';
 
 export const partnerRouter = express.Router();

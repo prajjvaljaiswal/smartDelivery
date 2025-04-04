@@ -2,6 +2,8 @@ import express from "express";
 import connectDB from "./database/dbconnect.js";
 import Partner from "./models/partner.js";
 import { partnerRouter } from "./routers/partnerRouter.js";
+import orderRouter from "./routers/orderRouter.js";
+import assignmentRouter from "./routers/assignmentRouter.js";
 const app = express();
 const port = 3000;
 
@@ -11,17 +13,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/partner", async (req, res) => {
-  try {
-    const partner = await Partner.find({});
-    if (partner.length === 0) throw new Error("Partner not found");
-    res.status(200).json(partner);
-  } catch (error: Error | any) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.use('/partner', partnerRouter)
+app.use('/api/partner', partnerRouter)
+app.use('/api/order', orderRouter)
+app.use('/api/assignment', assignmentRouter)
 
 connectDB()
   .then(() => {
