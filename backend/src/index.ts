@@ -1,7 +1,7 @@
 import express from "express";
 import connectDB from "./database/dbconnect.js";
 import Partner from "./models/partner.js";
-import { partnerRouter } from "./routers/partner.js";
+import { partnerRouter } from "./routers/partnerRouter.js";
 const app = express();
 const port = 3000;
 

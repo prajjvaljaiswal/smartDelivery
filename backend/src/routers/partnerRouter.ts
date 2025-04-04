@@ -4,8 +4,8 @@ import { createPartner, getPartners, updatePartner, deletePartner, viewPartner }
 
 export const partnerRouter = express.Router();
 
-partnerRouter.post('/create', createPartner);
-partnerRouter.get('/get', getPartners);
-partnerRouter.get('/view/:id', viewPartner)
-partnerRouter.put('/update/:id', updatePartner);
-partnerRouter.delete('/delete/:id', deletePartner)
+partnerRouter.post('/', createPartner);
+partnerRouter.get('/', getPartners);
+partnerRouter.get('/:id', viewPartner)
+partnerRouter.put('/:id', updatePartner);
+partnerRouter.delete('/:id', deletePartner)
