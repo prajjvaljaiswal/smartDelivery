@@ -48,7 +48,7 @@ export interface Order {
   location?: string
 }
 export interface Assignment {
-  id?: string
+  _id?: string
   orderId: Order
   partnerId: Partner
   timestamp: string

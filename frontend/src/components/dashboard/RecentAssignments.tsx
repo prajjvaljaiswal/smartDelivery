@@ -22,7 +22,7 @@ export function RecentAssignments({ assignments }: RecentAssignmentsProps) {
       <CardContent>
         <div className="space-y-4">
           {sortedAssignments.map((assignment) => (
-            <div key={assignment.id} className="flex flex-col space-y-2 rounded-lg border p-3">
+            <div key={assignment._id} className="flex flex-col space-y-2 rounded-lg border p-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="font-medium">{assignment.order?.orderNumber || `Order #${assignment.orderId.orderNumber}`}</span>

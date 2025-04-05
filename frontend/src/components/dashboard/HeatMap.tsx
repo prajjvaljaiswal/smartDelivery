@@ -63,7 +63,7 @@ export default function OrderHeatmap() {
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10',
       center: [72.87, 19.07], // Mumbai-ish
-      zoom: 10,
+      zoom: 9,
     });
 
     mapRef.current = map;
