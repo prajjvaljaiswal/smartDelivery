@@ -1,17 +1,23 @@
-
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
-  import { Button } from "../ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
-import { useEffect, useState } from "react"
-import {useDispatch, useSelector} from "react-redux"
-import { RootState } from "@/store/appStore"
-import { apiRequest } from "@/hooks/apiRequest"
-import { addPartner, deletePartner } from "@/store/partnerSlice"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "../ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/appStore";
+import { apiRequest } from "@/hooks/apiRequest";
+import { addPartner, deletePartner } from "@/store/partnerSlice";
 
 const Data_Table = () => {
   const [filter, setFilter] = useState("All");
@@ -20,14 +26,18 @@ const Data_Table = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await apiRequest("http://localhost:3000/api/partner", "GET", null);
+      const data = await apiRequest(
+        "http://localhost:3000/api/partner",
+        "GET",
+        null
+      );
       dispatch(addPartner(data));
     };
     fetchData();
 
-    return(()=>{
-      dispatch(deletePartner())
-    })
+    return () => {
+      dispatch(deletePartner());
+    };
   }, []);
 
   // Filtering Logic
@@ -49,9 +59,15 @@ const Data_Table = () => {
             <Button variant="outline">{filter}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => setFilter("All")}>All</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setFilter("Active")}>Active</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setFilter("Inactive")}>Inactive</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setFilter("All")}>
+              All
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setFilter("Active")}>
+              Active
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setFilter("Inactive")}>
+              Inactive
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -79,7 +95,7 @@ const Data_Table = () => {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={5 } className="text-center">
+              <TableCell colSpan={5} className="text-center">
                 No workers found...
               </TableCell>
             </TableRow>
@@ -90,5 +106,4 @@ const Data_Table = () => {
   );
 };
 
-
-export default Data_Table
+export default Data_Table;

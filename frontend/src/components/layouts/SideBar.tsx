@@ -1,31 +1,44 @@
 import { Link } from "react-router";
-import { Building2, ChevronLeft, Folder, HelpCircle, Home, Menu, Settings, Users2 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
+import {
+  Building2,
+  ChevronLeft,
+  Folder,
+  HelpCircle,
+  Home,
+  Menu,
+  Settings,
+  Users2,
+} from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router";
 import { Button } from "../ui/button";
 
-
 const navigation = [
-    { name: "Dashboard", href: "/", icon: Home },
-    { name: "Partners", href: "/partners", icon: Users2 },
-    { name: "Assignments", href: "/assignments", icon: Building2 },
-    { name: "Orders", href: "/orders", icon: Folder },
-    // { name: "Members", href: "/members", icon: Users2 }
-  ]
+  { name: "Dashboard", href: "/", icon: Home },
+  { name: "Partners", href: "/partners", icon: Users2 },
+  { name: "Assignments", href: "/assignments", icon: Building2 },
+  { name: "Orders", href: "/orders", icon: Folder },
+  // { name: "Members", href: "/members", icon: Users2 }
+];
 
-  const bottomNavigation = [
-    { name: "Settings", href: "/settings", icon: Settings },
-    { name: "Help", href: "/help", icon: HelpCircle },
-  ]
+const bottomNavigation = [
+  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Help", href: "/help", icon: HelpCircle },
+];
 
 const SideBar = () => {
-    const {pathname} = useLocation()
-    const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isMobileOpen, setIsMobileOpen] = useState(false) 
+  const { pathname } = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const NavItem = ({ item, isBottom = false }: any) => (
+  const NavItem = ({ item }: any) => (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
         <Link
@@ -35,7 +48,7 @@ const SideBar = () => {
             pathname === item.href
               ? "bg-secondary text-secondary-foreground"
               : "text-muted-foreground hover:bg-secondary hover:text-secondary-foreground",
-            isCollapsed && "justify-center px-2",
+            isCollapsed && "justify-center px-2"
           )}
         >
           <item.icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
@@ -48,7 +61,7 @@ const SideBar = () => {
         </TooltipContent>
       )}
     </Tooltip>
-  )
+  );
 
   return (
     <TooltipProvider>
@@ -64,11 +77,18 @@ const SideBar = () => {
           className={cn(
             "fixed inset-y-0 z-20 flex flex-col bg-background transition-all duration-300 ease-in-out lg:static",
             isCollapsed ? "w-[72px]" : "w-72",
-            isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+            isMobileOpen
+              ? "translate-x-0"
+              : "-translate-x-full lg:translate-x-0"
           )}
         >
           <div className="border-b border-border">
-            <div className={cn("flex h-16 items-center gap-2 px-4", isCollapsed && "justify-center px-2")}>
+            <div
+              className={cn(
+                "flex h-16 items-center gap-2 px-4",
+                isCollapsed && "justify-center px-2"
+              )}
+            >
               {!isCollapsed && (
                 <Link to="/" className="flex items-center font-semibold">
                   <span className="text-lg">Menu</span>
@@ -80,8 +100,15 @@ const SideBar = () => {
                 className={cn("ml-auto h-8 w-8", isCollapsed && "ml-0")}
                 onClick={() => setIsCollapsed(!isCollapsed)}
               >
-                <ChevronLeft className={cn("h-4 w-4 transition-transform", isCollapsed && "rotate-180")} />
-                <span className="sr-only">{isCollapsed ? "Expand" : "Collapse"} Sidebar</span>
+                <ChevronLeft
+                  className={cn(
+                    "h-4 w-4 transition-transform",
+                    isCollapsed && "rotate-180"
+                  )}
+                />
+                <span className="sr-only">
+                  {isCollapsed ? "Expand" : "Collapse"} Sidebar
+                </span>
               </Button>
             </div>
           </div>
@@ -102,7 +129,7 @@ const SideBar = () => {
         </div>
       </>
     </TooltipProvider>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;

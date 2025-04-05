@@ -1,10 +1,4 @@
-
-import {
-  CheckCircle2,
-  Clock,
-  Package,
-  Truck,
-} from "lucide-react";
+import { CheckCircle2, Clock, Package, Truck } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -13,17 +7,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Order } from "@/types/types";
+import { AssignmentMetrics, Order } from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import OrdersTable from "../orders/OrdersTable";
+import { PerformanceMetrics } from "./PerformanceMetrics";
+import { StatusTracking } from "./StatusTracking";
 
-interface OrdersOverviewProps {
+type OrdersOverviewProps = {
   orders: Order[];
-}
+  metrics: AssignmentMetrics;
+};
 
-export function OrdersOverview({ orders }: OrdersOverviewProps) {
- 
-
+export function OrdersOverview({ orders, metrics }: OrdersOverviewProps) {
   const pendingCount = orders.filter(
     (order) => order.status === "pending"
   ).length;
@@ -103,46 +98,50 @@ export function OrdersOverview({ orders }: OrdersOverviewProps) {
       </div>
 
       <Tabs defaultValue="orders" className="w-full">
-              <TabsList className="grid w-[500px] grid-cols-3 bg-gray-300">
-                <TabsTrigger value="orders" className="flex-1 sm:flex-none">
-                  Orders
-                </TabsTrigger>
-                <TabsTrigger value="status" className="flex-1 sm:flex-none">
-                  Status Tracking
-                </TabsTrigger>
-                {/* <TabsTrigger value="assignments" className="flex-1 sm:flex-none">
+        <TabsList className="grid w-[] grid-cols-3 bg-gray-300">
+          <TabsTrigger value="orders" className="flex-1 sm:flex-none">
+            Orders
+          </TabsTrigger>
+          <TabsTrigger value="status" className="flex-1 sm:flex-none">
+            Status Tracking
+          </TabsTrigger>
+          {/* <TabsTrigger value="assignments" className="flex-1 sm:flex-none">
                   Assignment History
                 </TabsTrigger> */}
-                <TabsTrigger value="performance" className="flex-1 sm:flex-none">
-                  Performance
-                </TabsTrigger>
-              </TabsList>
+          <TabsTrigger value="performance" className="flex-1 sm:flex-none">
+            Performance
+          </TabsTrigger>
+        </TabsList>
 
-              <TabsContent value="orders" className="mt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Orders</CardTitle>
-                    <CardDescription>Manage and track all your orders in one place.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <OrdersTable orders={orders} />
-                  </CardContent>
-                </Card>
-              </TabsContent>
+        <TabsContent value="orders" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Orders</CardTitle>
+              <CardDescription>
+                Manage and track all your orders in one place.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <OrdersTable orders={orders} />
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-              <TabsContent value="status" className="mt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Status Tracking</CardTitle>
-                    <CardDescription>Track and update the status of your orders.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {/* <StatusTracker orders={filteredOrders} /> */}
-                  </CardContent>
-                </Card>
-              </TabsContent>
+        <TabsContent value="status" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Status Tracking</CardTitle>
+              <CardDescription>
+                Track and update the status of your orders.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <StatusTracking orders={orders} />
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-              {/* <TabsContent value="assignments" className="mt-4">
+        {/* <TabsContent value="assignments" className="mt-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>Assignment History</CardTitle>
@@ -154,20 +153,20 @@ export function OrdersOverview({ orders }: OrdersOverviewProps) {
                 </Card>
               </TabsContent> */}
 
-              <TabsContent value="performance" className="mt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Performance Metrics</CardTitle>
-                    <CardDescription>Analyze key performance indicators for order fulfillment.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {/* <PerformanceMetrics metrics={mockMetrics} /> */}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-
-      
+        <TabsContent value="performance" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Performance Metrics</CardTitle>
+              <CardDescription>
+                Analyze key performance indicators for order fulfillment.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <PerformanceMetrics metrics={metrics} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

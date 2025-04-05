@@ -9,7 +9,7 @@ const Assignments = () => {
   const assignments = useSelector(
     (state: RootState) => state.assignment.assignments
   );
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchAssignment = async () => {
       const data = await apiRequest(
@@ -20,11 +20,11 @@ const Assignments = () => {
       dispatch(addAssignment(data));
     };
     // if(!assignments)
-      fetchAssignment();
+    fetchAssignment();
 
-    return(()=>{
+    return () => {
       dispatch(deleteAssignment());
-    })
+    };
   }, []);
   return (
     <div>

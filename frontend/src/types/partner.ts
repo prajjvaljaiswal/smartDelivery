@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const partnerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -13,14 +13,12 @@ export const partnerSchema = z.object({
     start: z.string().min(1, "Start time is required"),
     end: z.string().min(1, "End time is required"),
   }),
-})
+});
 
-export type FormValues = z.infer<typeof partnerSchema>
+export type FormValues = z.infer<typeof partnerSchema>;
 
 export const searchSchema = z.object({
   email: z.string().email("Invalid email address"),
-})
+});
 
-export type SearchValues = z.infer<typeof searchSchema>
-
-
+export type SearchValues = z.infer<typeof searchSchema>;

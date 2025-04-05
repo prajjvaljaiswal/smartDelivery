@@ -1,42 +1,59 @@
-"use client"
-
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { partnerSchema, type FormValues, searchSchema, type SearchValues } from "@/types/partner"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { searchUser } from "@/utils/action"
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { useSelector } from "react-redux"
-import { RootState } from "@/store/appStore"
-import { apiRequest } from "@/hooks/apiRequest"
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  partnerSchema,
+  type FormValues,
+  searchSchema,
+  type SearchValues,
+} from "@/types/partner";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { searchUser } from "@/utils/action";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/appStore";
+import { apiRequest } from "@/hooks/apiRequest";
 
 const areas = [
-    { id: "thane", label: "Thane" },
-    { id: "sion", label: "Sion" },
-    { id: "dombevli", label: "Dombevli" },
-    { id: "kalyan", label: "Kalyan" },
-    { id: "dadar", label: "Dadar" },
-  ];
+  { id: "thane", label: "Thane" },
+  { id: "sion", label: "Sion" },
+  { id: "dombevli", label: "Dombevli" },
+  { id: "kalyan", label: "Kalyan" },
+  { id: "dadar", label: "Dadar" },
+];
 
 export default function UpdateForm() {
-  const partners = useSelector((state: RootState)=> state.partner.partners)
-  const [isSearching, setIsSearching] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const partners = useSelector((state: RootState) => state.partner.partners);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchResult, setSearchResult] = useState<{
-    success: boolean
-    message: string
-    user?: FormValues | null
-  } | null>(null)
+    success: boolean;
+    message: string;
+    user?: FormValues | null;
+  } | null>(null);
   const [submitResult, setSubmitResult] = useState<{
-    success: boolean
-    message: string
-  } | null>(null)
+    success: boolean;
+    message: string;
+  } | null>(null);
 
   // Form for searching partners
   const searchForm = useForm<SearchValues>({
@@ -44,7 +61,7 @@ export default function UpdateForm() {
     defaultValues: {
       email: "",
     },
-  })
+  });
 
   // Form for updating user details
   const updateForm = useForm<FormValues>({
@@ -60,63 +77,67 @@ export default function UpdateForm() {
         end: "",
       },
     },
-  })
+  });
 
   async function onSearch(data: SearchValues) {
-    setIsSearching(true)
-    setSearchResult(null)
-    setSubmitResult(null)
+    setIsSearching(true);
+    setSearchResult(null);
+    setSubmitResult(null);
 
     try {
-      const result = await searchUser(data, partners)
-      setSearchResult(result)
+      const result = await searchUser(data, partners);
+      setSearchResult(result);
 
       if (result.success && result.user) {
         // Reset the form with the user data
         updateForm.reset({
           ...result.user,
-          phone: result.user.phone
-        })
+          phone: result.user.phone,
+        });
       }
     } catch (error) {
       setSearchResult({
         success: false,
         message: "An error occurred during search",
         user: null,
-      })
+      });
     } finally {
-      setIsSearching(false)
+      setIsSearching(false);
     }
   }
 
   async function onUpdate(data: FormValues) {
-    setIsSubmitting(true)
-    setSubmitResult(null)
+    setIsSubmitting(true);
+    setSubmitResult(null);
 
     try {
-      apiRequest("http://localhost:3000/api/partner/"+ data?.email, 'PUT', data)
-      .then((response)=>{
-        if(response.acknowledged)
-          setSubmitResult({success:true, message:"updated"})
-        else{
-          setSubmitResult({success:false, message:"update failed"})}
-      })
-      .catch(()=>{
-        setSubmitResult({success:false, message:"update failed"})
-      })
-     
+      apiRequest(
+        "http://localhost:3000/api/partner/" + data?.email,
+        "PUT",
+        data
+      )
+        .then((response) => {
+          if (response.acknowledged)
+            setSubmitResult({ success: true, message: "updated" });
+          else {
+            setSubmitResult({ success: false, message: "update failed" });
+          }
+        })
+        .catch(() => {
+          setSubmitResult({ success: false, message: "update failed" });
+        });
     } catch (error) {
       setSubmitResult({
         success: false,
         message: "An error occurred during update",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
   function resetForms() {
-    searchForm.reset()
+    searchForm.reset();
     updateForm.reset({
       name: "",
       email: "",
@@ -127,9 +148,9 @@ export default function UpdateForm() {
         start: "",
         end: "",
       },
-    })
-    setSearchResult(null)
-    setSubmitResult(null)
+    });
+    setSearchResult(null);
+    setSubmitResult(null);
   }
 
   return (
@@ -141,7 +162,10 @@ export default function UpdateForm() {
         </CardHeader>
         <CardContent>
           <Form {...searchForm}>
-            <form onSubmit={searchForm.handleSubmit(onSearch)} className="space-y-4">
+            <form
+              onSubmit={searchForm.handleSubmit(onSearch)}
+              className="space-y-4"
+            >
               <FormField
                 control={searchForm.control}
                 name="email"
@@ -149,7 +173,11 @@ export default function UpdateForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Enter user email to search" {...field} />
+                      <Input
+                        type="email"
+                        placeholder="Enter user email to search"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -176,11 +204,19 @@ export default function UpdateForm() {
 
           {searchResult && (
             <Alert
-              className={`mt-4 ${searchResult.success ? "bg-green-50" : "bg-red-50"}`}
+              className={`mt-4 ${
+                searchResult.success ? "bg-green-50" : "bg-red-50"
+              }`}
               variant={searchResult.success ? "default" : "destructive"}
             >
-              {searchResult.success ? <CheckCircle2 className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
-              <AlertTitle>{searchResult.success ? "Success" : "Error"}</AlertTitle>
+              {searchResult.success ? (
+                <CheckCircle2 className="h-4 w-4" />
+              ) : (
+                <AlertCircle className="h-4 w-4" />
+              )}
+              <AlertTitle>
+                {searchResult.success ? "Success" : "Error"}
+              </AlertTitle>
               <AlertDescription>{searchResult.message}</AlertDescription>
             </Alert>
           )}
@@ -188,13 +224,20 @@ export default function UpdateForm() {
       </Card>
 
       {/* Update Form */}
-      <Card className={searchResult?.success ? "" : "opacity-50 pointer-events-none"}>
+      <Card
+        className={
+          searchResult?.success ? "" : "opacity-50 pointer-events-none"
+        }
+      >
         <CardHeader>
           <CardTitle className="text-2xl">Update User Details</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...updateForm}>
-            <form onSubmit={updateForm.handleSubmit(onUpdate)} className="space-y-6">
+            <form
+              onSubmit={updateForm.handleSubmit(onUpdate)}
+              className="space-y-6"
+            >
               <FormField
                 control={updateForm.control}
                 name="name"
@@ -216,7 +259,12 @@ export default function UpdateForm() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Enter your email" {...field} disabled />
+                      <Input
+                        type="email"
+                        placeholder="Enter your email"
+                        {...field}
+                        disabled
+                      />
                     </FormControl>
                     <FormDescription>Email cannot be changed</FormDescription>
                     <FormMessage />
@@ -231,7 +279,11 @@ export default function UpdateForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field}/>
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -250,7 +302,9 @@ export default function UpdateForm() {
                         placeholder="Enter your phone number"
                         {...field}
                         onChange={(e) => {
-                          field.onChange(e.target.value === "" ? undefined : e.target.value)
+                          field.onChange(
+                            e.target.value === "" ? undefined : e.target.value
+                          );
                         }}
                         value={field.value || ""}
                       />
@@ -266,7 +320,11 @@ export default function UpdateForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Area to Work</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      value={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select an area" />
@@ -320,13 +378,23 @@ export default function UpdateForm() {
                   className={submitResult.success ? "bg-green-50" : "bg-red-50"}
                   variant={submitResult.success ? "default" : "destructive"}
                 >
-                  {submitResult.success ? <CheckCircle2 className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
-                  <AlertTitle>{submitResult.success ? "Success" : "Error"}</AlertTitle>
+                  {submitResult.success ? (
+                    <CheckCircle2 className="h-4 w-4" />
+                  ) : (
+                    <AlertCircle className="h-4 w-4" />
+                  )}
+                  <AlertTitle>
+                    {submitResult.success ? "Success" : "Error"}
+                  </AlertTitle>
                   <AlertDescription>{submitResult.message}</AlertDescription>
                 </Alert>
               )}
 
-              <Button type="submit" className="w-full" disabled={isSubmitting || !searchResult?.success}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isSubmitting || !searchResult?.success}
+              >
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -341,6 +409,5 @@ export default function UpdateForm() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-

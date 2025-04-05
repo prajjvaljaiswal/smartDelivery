@@ -1,20 +1,27 @@
-import type React from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import type React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface MetricsCardProps {
-  title: string
-  value: string | number
-  description?: string
-  icon?: React.ReactNode
+  title: string;
+  value: string | number;
+  description?: string;
+  icon?: React.ReactNode;
   trend?: {
-    value: number
-    isPositive: boolean
-  }
-  className?: string
+    value: number;
+    isPositive: boolean;
+  };
+  className?: string;
 }
 
-export function MetricsCard({ title, value, description, icon, trend, className }: MetricsCardProps) {
+export function MetricsCard({
+  title,
+  value,
+  description,
+  icon,
+  trend,
+  className,
+}: MetricsCardProps) {
   return (
     <Card className={cn("", className)}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -23,10 +30,17 @@ export function MetricsCard({ title, value, description, icon, trend, className 
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
-        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+        {description && (
+          <p className="text-xs text-muted-foreground">{description}</p>
+        )}
         {trend && (
           <div className="mt-1 flex items-center text-xs">
-            <span className={cn("mr-1", trend.isPositive ? "text-green-500" : "text-red-500")}>
+            <span
+              className={cn(
+                "mr-1",
+                trend.isPositive ? "text-green-500" : "text-red-500"
+              )}
+            >
               {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}%
             </span>
             <span className="text-muted-foreground">from last month</span>
@@ -34,6 +48,5 @@ export function MetricsCard({ title, value, description, icon, trend, className 
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
-
