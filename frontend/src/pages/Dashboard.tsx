@@ -5,10 +5,9 @@ import { addPartner, deletePartner } from "@/store/partnerSlice";
 // import { ActiveOrdersMap } from "@/components/active-orders-map"
 import { PartnerAvailability } from "@/components/dashboard/partner-availability"
 import { RecentAssignments } from "@/components/dashboard/RecentAssignments"
-import { mockDashboardMetrics } from "@/utils/mockData"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, deleteAssignment } from "@/store/assignmentSlice";
+import { addAssignment, addAssignmentMetrics, deleteAssignment, deleteAssignmentMetrics } from "@/store/assignmentSlice";
 import OrderHeatmap from "@/components/dashboard/HeatMap";
 
 export default function Dashboard() {
@@ -16,6 +15,7 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const partners = useSelector((state: RootState) => state.partner.partners)
   const assignments = useSelector((state: RootState) => state.assignment.assignments)
+  const metrics = useSelector((state: RootState) => state.assignment.assignmentMetrics) 
 
   useEffect(() => {
       const fetchData = async () => {
@@ -29,7 +29,14 @@ export default function Dashboard() {
         dispatch(addAssignment(data));
       }
       fetchAssignment()
+
+      const fetchAssignmentMetrics = async()=>{
+        const data = await apiRequest("http://localhost:3000/api/assignment/metrics", "GET", null);
+        dispatch(addAssignmentMetrics(data));
+      }
+      fetchAssignmentMetrics()
       return(()=>{
+        dispatch(deleteAssignmentMetrics())
         dispatch(deletePartner())
         dispatch(deleteAssignment())
       })
@@ -42,7 +49,7 @@ export default function Dashboard() {
       {/* Key Metrics */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Key Metrics</h2>
-        <KeyMetrics metrics={mockDashboardMetrics} />
+        {metrics && <KeyMetrics metrics={metrics} />}
       </section>
 
       {/* Map and Partner Availability */}

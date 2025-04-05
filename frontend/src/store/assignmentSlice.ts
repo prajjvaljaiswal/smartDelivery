@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Assignment } from "@/types/types";
+import { Assignment, AssignmentMetrics } from "@/types/types";
 
 interface assignments {
-    assignments: Assignment[]
+    assignments: Assignment[],
+    assignmentMetrics: AssignmentMetrics | null
 }
 
 const initialState: assignments = {
-    assignments :[]
+    assignments :[],
+    assignmentMetrics: null
 }
 
 const assignmentSlice= createSlice({
@@ -14,7 +16,7 @@ const assignmentSlice= createSlice({
     initialState,
     reducers:{
         addAssignment(state, action: PayloadAction<Assignment[]>){
-            console.log("dispatch")
+            // console.log("dispatch")
             state.assignments = action.payload;
         },
         updateAssignment(state, action: PayloadAction<{index: number; partner: Assignment}>){
@@ -23,10 +25,16 @@ const assignmentSlice= createSlice({
         },
         deleteAssignment(state){
             state.assignments = []
-        }
+        },
+        addAssignmentMetrics(state, action: PayloadAction<AssignmentMetrics>){
+            state.assignmentMetrics = action.payload;
+        },
+        deleteAssignmentMetrics(state){
+            state.assignmentMetrics = null
+        },
     }
 });
 
-export const {addAssignment, updateAssignment, deleteAssignment} = assignmentSlice.actions
+export const {addAssignment, updateAssignment, deleteAssignment, addAssignmentMetrics, deleteAssignmentMetrics} = assignmentSlice.actions
 
 export default assignmentSlice.reducer

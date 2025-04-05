@@ -1,6 +1,6 @@
 // components/OrderHeatmap.tsx
 import { apiRequest } from '@/hooks/apiRequest';
-import mapboxgl, { Map, GeoJSONSource } from 'mapbox-gl';
+import mapboxgl, { Map } from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
 

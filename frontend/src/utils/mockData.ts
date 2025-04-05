@@ -1,74 +1,6 @@
-import type { Assignment, DashboardMetrics, Order, Partner } from "@/types/types"
+import type {  DashboardMetrics, Order } from "@/types/types"
 
-// Mock center point for the map (adjust as needed)
-const MAP_CENTER = { lat: 40.7128, lng: -74.006 } // New York City
 
-// export const mockPartners: Partner[] = [
-//   {
-//     id: "p1",
-//     name: "John Smith",
-//     email: "john@example.com",
-//     phone: "555-1234",
-//     status: "active",
-//     area: "Downtown",
-//     rating: 4.8,
-//     completedOrders: 156,
-//     cancelledOrders: 3,
-//     location: "thane",
-//     shift: { start: "09:00", end: "17:00" },
-//   },
-//   {
-//     id: "p2",
-//     name: "Sarah Johnson",
-//     email: "sarah@example.com",
-//     phone: "555-5678",
-//     status: "active",
-//     area: "Midtown",
-//     rating: 4.6,
-//     completedOrders: 98,
-//     cancelledOrders: 2,
-//     location: "sion",
-//     shift: { start: "10:00", end: "18:00" },
-//   },
-//   {
-//     id: "p3",
-//     name: "Michael Brown",
-//     email: "michael@example.com",
-//     phone: "555-9012",
-//     status: "active",
-//     area: "Uptown",
-//     rating: 4.9,
-//     completedOrders: 212,
-//     cancelledOrders: 1,
-//     shift: { start: "08:00", end: "16:00" },
-//   },
-//   {
-//     id: "p4",
-//     name: "Emily Davis",
-//     email: "emily@example.com",
-//     phone: "555-3456",
-//     status: "active",
-//     area: "Downtown",
-//     rating: 4.7,
-//     completedOrders: 78,
-//     cancelledOrders: 4,
-//     location: "kalyan",
-//     shift: { start: "12:00", end: "20:00" },
-//   },
-//   {
-//     id: "p5",
-//     name: "David Wilson",
-//     email: "david@example.com",
-//     phone: "555-7890",
-//     status: "active",
-//     area: "Midtown",
-//     rating: 4.5,
-//     completedOrders: 134,
-//     cancelledOrders: 5,
-//     location: "dadar",
-//     shift: { start: "11:00", end: "19:00" },
-//   },
-// ]
 
 export const mockOrders: Order[] = [
   {
@@ -169,56 +101,6 @@ export const mockOrders: Order[] = [
     location: "thane",
   },
 ]
-
-// export const mockAssignments: Assignment[] = [
-//   {
-//     id: "a1",
-//     orderId: "o2",
-//     partnerId: "p2",
-//     timestamp: "2023-06-15T11:45:00Z",
-//     status: "success",
-//     order: mockOrders.find((o) => o.id === "o2"),
-//     partner: mockPartners.find((p) => p.id === "p2"),
-//   },
-//   {
-//     id: "a2",
-//     orderId: "o3",
-//     partnerId: "p1",
-//     timestamp: "2023-06-15T12:30:00Z",
-//     status: "success",
-//     order: mockOrders.find((o) => o.id === "o3"),
-//     partner: mockPartners.find((p) => p.id === "p1"),
-//   },
-//   {
-//     id: "a3",
-//     orderId: "o4",
-//     partnerId: "p4",
-//     timestamp: "2023-06-15T10:15:00Z",
-//     status: "success",
-//     order: mockOrders.find((o) => o.id === "o4"),
-//     partner: mockPartners.find((p) => p.id === "p4"),
-//   },
-//   {
-//     id: "a4",
-//     orderId: "o5",
-//     partnerId: "p3",
-//     timestamp: "2023-06-15T13:15:00Z",
-//     status: "failed",
-//     reason: "Partner unavailable",
-//     order: mockOrders.find((o) => o.id === "o5"),
-//     partner: mockPartners.find((p) => p.id === "p3"),
-//   },
-//   {
-//     id: "a5",
-//     orderId: "o5",
-//     partnerId: "p5",
-//     timestamp: "2023-06-15T13:30:00Z",
-//     status: "failed",
-//     reason: "Partner rejected",
-//     order: mockOrders.find((o) => o.id === "o5"),
-//     partner: mockPartners.find((p) => p.id === "p5"),
-//   },
-// ]
 
 export const mockDashboardMetrics: DashboardMetrics = {
   totalOrders: 5,

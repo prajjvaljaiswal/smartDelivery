@@ -1,52 +1,48 @@
-import type { DashboardMetrics } from "@/types/types"
+import type { AssignmentMetrics } from "@/types/types"
 import { MetricsCard } from "./MetricsCard"
-import { Package, Truck, CheckCircle, Users, Clock } from "lucide-react"
+import { Package, Truck, CheckCircle, Clock } from "lucide-react"
 
 interface KeyMetricsProps {
-  metrics: DashboardMetrics
+  metrics: AssignmentMetrics
 }
 
 export function KeyMetrics({ metrics }: KeyMetricsProps) {
+  const successCount = Math.round((metrics.successRate / 100) * metrics.totalAssigned)
+  const pendingOrders = metrics.totalAssigned - successCount
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <MetricsCard
         title="Total Orders"
-        value={metrics.totalOrders}
+        value={metrics.totalAssigned}
         description="All orders in the system"
         icon={<Package className="h-4 w-4" />}
         trend={{ value: 12, isPositive: true }}
       />
       <MetricsCard
         title="Pending Orders"
-        value={metrics.pendingOrders}
+        value={pendingOrders}
         description="Orders waiting for assignment"
         icon={<Clock className="h-4 w-4" />}
         trend={{ value: 5, isPositive: false }}
       />
       <MetricsCard
         title="Delivered Orders"
-        value={metrics.deliveredOrders}
+        value={successCount}
         description="Successfully completed orders"
         icon={<CheckCircle className="h-4 w-4" />}
         trend={{ value: 18, isPositive: true }}
       />
       <MetricsCard
-        title="Available Partners"
-        value={`${metrics.availablePartners}/${metrics.totalPartners}`}
-        description="Partners ready for assignments"
-        icon={<Users className="h-4 w-4" />}
-        trend={{ value: 2, isPositive: true }}
-      />
-      <MetricsCard
         title="Assignment Success Rate"
-        value={`${metrics.assignmentMetrics.successRate}%`}
+        value={`${metrics.successRate.toFixed(1)}%`}
         description="Successful assignments"
         icon={<Truck className="h-4 w-4" />}
         trend={{ value: 3, isPositive: true }}
       />
       <MetricsCard
         title="Average Assignment Time"
-        value={`${metrics.assignmentMetrics.averageTime} min`}
+        value={`${metrics.averageTime} min`}
         description="Time to complete assignments"
         icon={<Clock className="h-4 w-4" />}
         trend={{ value: 8, isPositive: false }}
@@ -54,4 +50,3 @@ export function KeyMetrics({ metrics }: KeyMetricsProps) {
     </div>
   )
 }
-
