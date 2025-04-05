@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { BarChart2, Building2, ChevronLeft, Folder, HelpCircle, Home, Menu, Settings, Users2 } from "lucide-react";
+import { Building2, ChevronLeft, Folder, HelpCircle, Home, Menu, Settings, Users2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,7 @@ const SideBar = () => {
     <TooltipProvider>
       <>
         <button
-          className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-background rounded-md shadow-md"
+          className="lg:hidden fixed top-4 right-4 z-50 p-2 bg-background rounded-md shadow-md"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           aria-label="Toggle sidebar"
         >

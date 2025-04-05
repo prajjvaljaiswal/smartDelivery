@@ -11,7 +11,7 @@ import { useEffect, useState } from "react"
 import {useDispatch, useSelector} from "react-redux"
 import { RootState } from "@/store/appStore"
 import { apiRequest } from "@/hooks/apiRequest"
-import { addPartner } from "@/store/partnerSlice"
+import { addPartner, deletePartner } from "@/store/partnerSlice"
 
 const Data_Table = () => {
   const [filter, setFilter] = useState("All");
@@ -24,6 +24,10 @@ const Data_Table = () => {
       dispatch(addPartner(data));
     };
     fetchData();
+
+    return(()=>{
+      dispatch(deletePartner())
+    })
   }, []);
 
   // Filtering Logic

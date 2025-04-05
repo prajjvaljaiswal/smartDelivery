@@ -20,9 +20,12 @@ const partnerSlice= createSlice({
         updatePartner(state, action: PayloadAction<{index: number; partner: Partner}>){
             const {index, partner} = action.payload
             state.partners[index]= partner
+        },
+        deletePartner(state){
+            state.partners = []
         }
     }
 });
 
-export const {addPartner, updatePartner}= partnerSlice.actions
+export const {addPartner, updatePartner, deletePartner}= partnerSlice.actions
 export default partnerSlice.reducer

@@ -1,9 +1,9 @@
-export type PartnerStatus = "active" | "busy" | "offline"
-export type OrderStatus = "pending" | "assigned" | "in_progress" | "completed" | "cancelled"
-export type AssignmentStatus = "active" | "completed" | "cancelled"
+export type PartnerStatus = "active" | "inactive" 
+export type OrderStatus = "pending" | "assigned" | "delivered" | "picked"
+export type AssignmentStatus = "active" | "failed" 
 
 export interface Partner {
-  id?: string
+  _id?: string
   name: string
   email: string
   phone: string
@@ -12,10 +12,7 @@ export interface Partner {
   rating?: number
   completedOrders?: number
   cancelledOrders?: number
-  location?: {
-    lat: number
-    lng: number
-  }
+  location?: string
   shift?: {
     start: string
     end: string
@@ -24,66 +21,61 @@ export interface Partner {
   updatedAt?: string
 }
 
+export interface OrderItem {
+  name: string
+  quantity: number
+  price: number
+}
+
+export interface Customer {
+  name: string
+  phone: string
+  address: string
+}
+
 export interface Order {
   id: string
-  customerId: string
-  customerName: string
-  customerPhone: string
-  pickupAddress: string
-  deliveryAddress: string
-  items: {
-    name: string
-    quantity: number
-    price: number
-  }[]
-  totalAmount: number
+  orderNumber: string
+  customer: Customer
+  area: string
+  items: OrderItem[]
   status: OrderStatus
-  areaId: string
-  pickupLocation: {
-    lat: number
-    lng: number
-  }
-  deliveryLocation: {
-    lat: number
-    lng: number
-  }
+  scheduledFor: string
+  assignedTo?: string
+  totalAmount: number
   createdAt: string
   updatedAt: string
+  location?: string
 }
-
 export interface Assignment {
-  id: string
-  orderId: string
-  partnerId: string
-  status: AssignmentStatus
-  createdAt: string
-  updatedAt: string
-  orderDetails?: {
-    id: string
-    pickupAddress: string
-    deliveryAddress: string
-    status: OrderStatus
-  }
-  partnerDetails?: {
-    id: string
-    name: string
-    status: PartnerStatus
-  }
+  id?: string
+  orderId: Order
+  partnerId: Partner
+  timestamp: string
+  status: String
+  reason?: string
+  order?: Order
+  partner?: Partner
 }
 
-export interface Area {
-  id: string
-  name: string
-  description?: string
-  bounds?: {
-    northeast: {
-      lat: number
-      lng: number
-    }
-    southwest: {
-      lat: number
-      lng: number
-    }
-  }
+export interface AssignmentMetrics {
+  totalAssigned: number
+  successRate: number
+  averageTime: number
+  failureReasons: {
+    reason: string
+    count: number
+  }[]
 }
 
+
+
+export interface DashboardMetrics {
+  totalOrders: number
+  pendingOrders: number
+  assignedOrders: number
+  deliveredOrders: number
+  totalPartners: number
+  availablePartners: number
+  assignmentMetrics: AssignmentMetrics
+}

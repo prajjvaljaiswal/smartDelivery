@@ -4,7 +4,7 @@ import Partner from "../models/partner.js";
 import Order from "../models/order.js";
 import AssignmentMetrics from "../models/assignmentMetrics.js";
 
-//TODO: add more assignment metrcis controller  
+//TODO: add more assignment metrcis controller
 // Get assignment metrics
 export const getAssignmentMetrics = async (req: Request, res: Response) => {
   try {
@@ -56,5 +56,17 @@ export const assignOrder = async (req: Request, res: Response) => {
     res.status(200).json({ assignment, updatedOrder });
   } catch (error) {
     res.status(500).json({ error: "Failed to assign order" });
+  }
+};
+
+export const showAssignment = async (req: Request, res: Response) => {
+  try {
+    const assignments = await Assignment.find()
+      .populate("orderId")
+      .populate("partnerId");
+    if (!assignments) throw new Error("Failed");
+    res.status(200).json(assignments);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get assign order" });
   }
 };

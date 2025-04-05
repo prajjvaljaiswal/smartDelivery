@@ -15,7 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/hooks/apiRequest";
-import { error } from "console";
 
 const areas = [
   { id: "thane", label: "Thane" },
