@@ -13,7 +13,7 @@ export default function Partners() {
         <h2 className="text-3xl font-bold tracking-tight">Partners</h2>
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-[500px] grid-cols-3 bg-gray-300 ">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="analytics">Add Partner</TabsTrigger>
           <TabsTrigger value="reports">Update Partner</TabsTrigger>
