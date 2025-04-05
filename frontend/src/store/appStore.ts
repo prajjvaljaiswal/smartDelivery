@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import partnerReducer from "./partnerSlice"
 import assignmentReducer from "./assignmentSlice"
+import orderReduser from './orderSlice'
 
 const appStore = configureStore({
     reducer:{
         partner: partnerReducer,
-        assignment: assignmentReducer
+        assignment: assignmentReducer,
+        order: orderReduser
     }
 })
 

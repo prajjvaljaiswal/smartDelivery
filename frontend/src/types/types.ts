@@ -34,7 +34,7 @@ export interface Customer {
 }
 
 export interface Order {
-  id: string
+  _id?: string
   orderNumber: string
   customer: Customer
   area: string
@@ -54,8 +54,6 @@ export interface Assignment {
   timestamp: string
   status: String
   reason?: string
-  order?: Order
-  partner?: Partner
 }
 
 export interface AssignmentMetrics {
@@ -68,14 +66,3 @@ export interface AssignmentMetrics {
   }[]
 }
 
-
-
-export interface DashboardMetrics {
-  totalOrders: number
-  pendingOrders: number
-  assignedOrders: number
-  deliveredOrders: number
-  totalPartners: number
-  availablePartners: number
-  assignmentMetrics: AssignmentMetrics
-}

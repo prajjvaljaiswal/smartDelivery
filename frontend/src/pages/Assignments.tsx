@@ -1,5 +1,4 @@
 import { AssignmentHistory } from "@/components/AssignmentHistory";
-import { RecentAssignments } from "@/components/dashboard/RecentAssignments";
 import { apiRequest } from "@/hooks/apiRequest";
 import { RootState } from "@/store/appStore";
 import { addAssignment, deleteAssignment } from "@/store/assignmentSlice";

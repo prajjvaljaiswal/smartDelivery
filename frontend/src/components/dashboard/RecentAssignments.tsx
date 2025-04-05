@@ -25,7 +25,7 @@ export function RecentAssignments({ assignments }: RecentAssignmentsProps) {
             <div key={assignment._id} className="flex flex-col space-y-2 rounded-lg border p-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <span className="font-medium">{assignment.order?.orderNumber || `Order #${assignment.orderId.orderNumber}`}</span>
+                  <span className="font-medium">{`Order #${assignment.orderId.orderNumber}`}</span>
                   <Badge
                     variant="outline"
                     className={cn(
@@ -44,10 +44,10 @@ export function RecentAssignments({ assignments }: RecentAssignmentsProps) {
                 <span className="text-muted-foreground">Assigned to: </span>
                 <span>{assignment.partnerId?.name || `Partner #${assignment.partnerId.name}`}</span>
               </div>
-              {assignment?.order && (
+              {assignment?.orderId && (
                 <div className="text-sm">
                   <span className="text-muted-foreground">Customer: </span>
-                  <span>{assignment.order.customer.name}</span>
+                  <span>{assignment.orderId.customer.name}</span>
                 </div>
               )}
               {assignment.reason && <div className="text-sm text-red-500">Reason: {assignment.reason}</div>}
