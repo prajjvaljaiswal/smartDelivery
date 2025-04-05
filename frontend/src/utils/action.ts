@@ -1,34 +1,14 @@
 
+
+import { updatePartner } from "@/store/partnerSlice"
 import { type FormValues, partnerSchema, type SearchValues, searchSchema } from "@/types/partner"
+import { Partner } from "@/types/types"
+import { useDispatch } from "react-redux"
 
-// Mock database of users
-const users = [
-  {
-    name: "John Doe",
-    email: "john@example.com",
-    password: "password123",
-    phone: 1234567890,
-    area: "sion",
-    shift: {
-      start: "09:00",
-      end: "17:00",
-    },
-  },
-  {
-    name: "Jane Smith",
-    email: "jane@example.com",
-    password: "securepass",
-    phone: 9876543210,
-    area: "thane",
-    shift: {
-      start: "10:00",
-      end: "18:00",
-    },
-  },
-]
+// Mock database of partners
 
-export async function searchUser(data: SearchValues) {
-  // Validate the search data
+
+export async function searchUser(data: SearchValues, partners: Partner[]) {
   const result = searchSchema.safeParse(data)
 
   if (!result.success) {
@@ -39,10 +19,9 @@ export async function searchUser(data: SearchValues) {
     }
   }
 
-  // Simulate a database lookup
   await new Promise((resolve) => setTimeout(resolve, 800))
 
-  const user = users.find((user) => user.email === data.email)
+  const user = partners.find((user) => user.email === data.email)
 
   if (!user) {
     return {
@@ -52,15 +31,29 @@ export async function searchUser(data: SearchValues) {
     }
   }
 
+  // Convert `user` to match the expected `FormValues` shape
+  const transformedUser: FormValues = {
+    name: user.name,
+    email: user.email,
+    password: "", // leave blank or mask it
+    phone: parseInt(user.phone.toString(), 10),
+    area: user.area,
+    shift: {
+      start: user.shift?.start || "",
+      end: user.shift?.end || "",
+    },
+  }
+
   return {
     success: true,
     message: "User found",
-    user,
+    user: transformedUser,
   }
 }
 
-export async function updateUser(data: FormValues) {
+export async function updateUser(data: FormValues, partners: Partner[]) {
   // Validate the data with Zod
+  const dispatch = useDispatch()
   const result = partnerSchema.safeParse(data)
 
   if (!result.success) {
@@ -75,11 +68,12 @@ export async function updateUser(data: FormValues) {
   await new Promise((resolve) => setTimeout(resolve, 1000))
 
   // Find the user index
-  const userIndex = users.findIndex((user) => user.email === data.email)
+  const userIndex = partners.findIndex((user) => user.email === data.email)
 
   if (userIndex !== -1) {
     // Update the user in our mock database
-    users[userIndex] = data
+    // partners[userIndex] = data
+    dispatch(updatePartner({index: userIndex, partner: {...data, phone: data.phone.toString(), status: partners[userIndex]?.status || "active"}}))
   }
 
   return {

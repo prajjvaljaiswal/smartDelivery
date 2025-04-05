@@ -3,26 +3,25 @@ export type OrderStatus = "pending" | "assigned" | "in_progress" | "completed" |
 export type AssignmentStatus = "active" | "completed" | "cancelled"
 
 export interface Partner {
-  id: string
+  id?: string
   name: string
   email: string
   phone: string
   status: PartnerStatus
-  areas: string[] // Array of area IDs
-  rating: number
-  completedOrders: number
-  cancelledOrders: number
+  area: string
+  rating?: number
+  completedOrders?: number
+  cancelledOrders?: number
   location?: {
     lat: number
     lng: number
   }
-  shifts?: {
-    day: string
-    startTime: string
-    endTime: string
-  }[]
-  createdAt: string
-  updatedAt: string
+  shift?: {
+    start: string
+    end: string
+  }
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface Order {

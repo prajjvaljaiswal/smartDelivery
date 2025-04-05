@@ -29,8 +29,8 @@ const partnerSchema = new mongoose.Schema(
       default: 0,
       max: 3,
     },
-    areas: {
-      type: [String],
+    area: {
+      type: String,
       required: true,
     },
     shift: {

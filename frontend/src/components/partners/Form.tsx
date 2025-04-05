@@ -14,7 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { submitForm } from "@/utils/action";
+import { apiRequest } from "@/hooks/apiRequest";
+import { error } from "console";
 
 const areas = [
   { id: "thane", label: "Thane" },
@@ -49,8 +50,14 @@ export default function PartnerForm() {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true);
     try {
-      const result = await submitForm(data);
-      setSubmitResult(result);
+      apiRequest("http://localhost:3000/api/partner/",'POST',data)
+      .then((response)=>{
+        if(response.success === false)
+          setSubmitResult({success:false, message: "partner cannot be created"}) 
+        else{
+          setSubmitResult({success:true, message:"Partner created"})
+        }
+      })
     } catch (error) {
       setSubmitResult({
         success: false,

@@ -3,7 +3,7 @@ import { z } from "zod"
 export const partnerSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
   phone: z.coerce.number({
     required_error: "Phone number is required",
     invalid_type_error: "Phone number must be a number",

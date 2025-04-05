@@ -9,9 +9,12 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { searchUser, updateUser } from "@/utils/action"
+import { searchUser } from "@/utils/action"
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useSelector } from "react-redux"
+import { RootState } from "@/store/appStore"
+import { apiRequest } from "@/hooks/apiRequest"
 
 const areas = [
     { id: "thane", label: "Thane" },
@@ -22,6 +25,7 @@ const areas = [
   ];
 
 export default function UpdateForm() {
+  const partners = useSelector((state: RootState)=> state.partner.partners)
   const [isSearching, setIsSearching] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [searchResult, setSearchResult] = useState<{
@@ -34,7 +38,7 @@ export default function UpdateForm() {
     message: string
   } | null>(null)
 
-  // Form for searching users
+  // Form for searching partners
   const searchForm = useForm<SearchValues>({
     resolver: zodResolver(searchSchema),
     defaultValues: {
@@ -64,12 +68,15 @@ export default function UpdateForm() {
     setSubmitResult(null)
 
     try {
-      const result = await searchUser(data)
+      const result = await searchUser(data, partners)
       setSearchResult(result)
 
       if (result.success && result.user) {
         // Reset the form with the user data
-        updateForm.reset(result.user)
+        updateForm.reset({
+          ...result.user,
+          phone: result.user.phone
+        })
       }
     } catch (error) {
       setSearchResult({
@@ -87,8 +94,17 @@ export default function UpdateForm() {
     setSubmitResult(null)
 
     try {
-      const result = await updateUser(data)
-      setSubmitResult(result)
+      apiRequest("http://localhost:3000/api/partner/"+ data?.email, 'PUT', data)
+      .then((response)=>{
+        if(response.acknowledged)
+          setSubmitResult({success:true, message:"updated"})
+        else{
+          setSubmitResult({success:false, message:"update failed"})}
+      })
+      .catch(()=>{
+        setSubmitResult({success:false, message:"update failed"})
+      })
+     
     } catch (error) {
       setSubmitResult({
         success: false,
@@ -215,7 +231,7 @@ export default function UpdateForm() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
+                      <Input type="password" placeholder="Enter your password" {...field}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -29,6 +29,10 @@ export const viewPartner = async( req:Request, res: Response)=>{
 // Create a new partner
 export const createPartner = async (req: Request, res: Response) => {
   try {
+    const partner = await Partner.findOne({email: req.body.email})
+    if(partner){
+      res.status(500).json({ error: "Partner already exist" })
+    }
     const newPartner = new Partner(req.body);
     await newPartner.save();
     res.status(201).json(newPartner);
@@ -40,11 +44,9 @@ export const createPartner = async (req: Request, res: Response) => {
 // Update a partner
 export const updatePartner = async (req: Request, res: Response) => {
   try {
-    const updatedPartner = await Partner.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const partner = await Partner.findOne({email: req.params.id});
+    const {name, area , phone, shift } = req.body
+    const updatedPartner = await Partner.updateOne({_id: partner?._id},{name, area, phone, shift})
     res.status(200).json(updatedPartner);
   } catch (error) {
     res.status(500).json({ error: "Failed to update partner" });
