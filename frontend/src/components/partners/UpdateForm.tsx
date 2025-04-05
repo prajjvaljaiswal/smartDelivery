@@ -32,6 +32,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/appStore";
 import { apiRequest } from "@/hooks/apiRequest";
+const baseURL = import.meta.env.VITE_API_URL
 
 const areas = [
   { id: "thane", label: "Thane" },
@@ -112,7 +113,7 @@ export default function UpdateForm() {
 
     try {
       apiRequest(
-        "http://localhost:3000/api/partner/" + data?.email,
+        baseURL+"/api/partner/" + data?.email,
         "PUT",
         data
       )

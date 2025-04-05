@@ -8,6 +8,7 @@ import {
 import { addOrders, deleteOrders } from "@/store/orderSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+const baseURL = import.meta.env.VITE_API_URL
 
 const Orders = () => {
   const orders = useSelector((store: RootState) => store.order.orders);
@@ -19,7 +20,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/order/",
+        baseURL+"/api/order/",
         "GET",
         null
       );
@@ -28,7 +29,7 @@ const Orders = () => {
     fetchOrder();
     const fetchAssignmentMetrics = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/assignment/metrics",
+        baseURL+"/api/assignment/metrics",
         "GET",
         null
       );

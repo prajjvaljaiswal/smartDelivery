@@ -31,6 +31,7 @@ import { RootState } from "@/store/appStore";
 import { useEffect } from "react";
 import { apiRequest } from "@/hooks/apiRequest";
 import { addPartner, deletePartner } from "@/store/partnerSlice";
+const baseURL = import.meta.env.VITE_API_URL
 
 interface PerformanceMetricsProp {
   metrics: AssignmentMetrics;
@@ -43,7 +44,7 @@ export function PerformanceMetrics({ metrics }: PerformanceMetricsProp) {
   useEffect(() => {
     const fetchData = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/partner/",
+        baseURL+"/api/partner/",
         "GET",
         null
       );

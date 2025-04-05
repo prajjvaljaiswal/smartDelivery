@@ -4,6 +4,7 @@ import { RootState } from "@/store/appStore";
 import { addAssignment, deleteAssignment } from "@/store/assignmentSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+const baseURL = import.meta.env.VITE_API_URL
 
 const Assignments = () => {
   const assignments = useSelector(
@@ -13,7 +14,7 @@ const Assignments = () => {
   useEffect(() => {
     const fetchAssignment = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/assignment",
+        baseURL+"/api/assignment",
         "GET",
         null
       );

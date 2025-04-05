@@ -2,6 +2,7 @@ import { apiRequest } from "@/hooks/apiRequest";
 import mapboxgl, { Map } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
+const baseURL = import.meta.env.VITE_API_URL
 
 mapboxgl.accessToken = mapboxToken;
 
@@ -30,7 +31,7 @@ export default function OrderHeatmap() {
   useEffect(() => {
     const fetchHeatmapData = async () => {
       const res = await apiRequest(
-        "http://localhost:3000/api/order/count",
+        baseURL+"/api/order/count",
         "GET",
         null
       );

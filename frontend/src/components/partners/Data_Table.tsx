@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/appStore";
 import { apiRequest } from "@/hooks/apiRequest";
 import { addPartner, deletePartner } from "@/store/partnerSlice";
+const baseURL = import.meta.env.VITE_API_URL
 
 const Data_Table = () => {
   const [filter, setFilter] = useState("All");
@@ -27,7 +28,7 @@ const Data_Table = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/partner",
+        baseURL+"/api/partner",
         "GET",
         null
       );

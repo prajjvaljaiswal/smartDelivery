@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/hooks/apiRequest";
+const baseURL = import.meta.env.VITE_API_URL
 
 const areas = [
   { id: "thane", label: "Thane" },
@@ -49,7 +50,7 @@ export default function PartnerForm() {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true);
     try {
-      apiRequest("http://localhost:3000/api/partner/",'POST',data)
+      apiRequest(baseURL+"/api/partner/",'POST',data)
       .then((response)=>{
         if(response.success === false)
           setSubmitResult({success:false, message: "partner cannot be created"}) 

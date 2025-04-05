@@ -13,6 +13,7 @@ import {
   deleteAssignmentMetrics,
 } from "@/store/assignmentSlice";
 import OrderHeatmap from "@/components/dashboard/HeatMap";
+const baseURL = import.meta.env.VITE_API_URL
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/partner",
+        baseURL+"/api/partner",
         "GET",
         null
       );
@@ -37,7 +38,7 @@ export default function Dashboard() {
 
     const fetchAssignment = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/assignment",
+        baseURL+"/api/assignment",
         "GET",
         null
       );
@@ -47,7 +48,7 @@ export default function Dashboard() {
 
     const fetchAssignmentMetrics = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/assignment/metrics",
+        baseURL+"/api/assignment/metrics",
         "GET",
         null
       );

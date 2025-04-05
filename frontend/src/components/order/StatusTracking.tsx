@@ -23,6 +23,7 @@ import { RootState } from "@/store/appStore";
 import { Order } from "@/types/types";
 import { addAssignment, deleteAssignment } from "@/store/assignmentSlice";
 import { apiRequest } from "@/hooks/apiRequest";
+const baseURL = import.meta.env.VITE_API_URL
 
 interface StatusTrackingProp {
   orders: Order[];
@@ -39,7 +40,7 @@ export function StatusTracking({ orders }: StatusTrackingProp) {
   useEffect(() => {
     const fetchAssignment = async () => {
       const data = await apiRequest(
-        "http://localhost:3000/api/assignment",
+        baseURL+"/api/assignment",
         "GET",
         null
       );
