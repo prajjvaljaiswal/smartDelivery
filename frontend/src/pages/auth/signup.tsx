@@ -18,7 +18,7 @@ export default function SignUp() {
     const [email, setEmail]= useState("")
     const [password, setPassword]= useState("")
     const [confirmPassword, setConfirmPassword]= useState("")
-
+    console.log(email)
     function handelSubmit(){
         if(password !== confirmPassword)
             alert("Password must be same!!")

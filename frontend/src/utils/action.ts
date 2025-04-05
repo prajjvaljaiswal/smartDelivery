@@ -1,9 +1,6 @@
 
-
-import { updatePartner } from "@/store/partnerSlice"
 import { type FormValues, partnerSchema, type SearchValues, searchSchema } from "@/types/partner"
 import { Partner } from "@/types/types"
-import { useDispatch } from "react-redux"
 
 // Mock database of partners
 
@@ -53,7 +50,6 @@ export async function searchUser(data: SearchValues, partners: Partner[]) {
 
 export async function updateUser(data: FormValues, partners: Partner[]) {
   // Validate the data with Zod
-  const dispatch = useDispatch()
   const result = partnerSchema.safeParse(data)
 
   if (!result.success) {
@@ -73,7 +69,7 @@ export async function updateUser(data: FormValues, partners: Partner[]) {
   if (userIndex !== -1) {
     // Update the user in our mock database
     // partners[userIndex] = data
-    dispatch(updatePartner({index: userIndex, partner: {...data, phone: data.phone.toString(), status: partners[userIndex]?.status || "active"}}))
+    // dispatch(updatePartner({index: userIndex, partner: {...data, phone: data.phone.toString(), status: partners[userIndex]?.status || "active"}}))
   }
 
   return {
