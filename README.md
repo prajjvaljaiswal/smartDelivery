@@ -3,19 +3,19 @@
 🚀 Getting Started
 1. Clone the repository
 
-    git clone https://github.com/your-username/smart-delivery-system.git
-    cd smartDelivery
+        git clone https://github.com/your-username/smart-delivery-system.git
+        cd smartDelivery
   
 2. Start Backend (in /backend)
 
-    npm install
-    npm run build
-    npm start
+        npm install
+        npm run build
+        npm start
   
 3. Start Frontend (in /frontend)
 
-    npm install
-    npm run dev
+        npm install
+        npm run dev
 
 
 🔌 API Endpoints
