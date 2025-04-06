@@ -6,8 +6,8 @@ const AssignmentMetricsSchema = new mongoose.Schema({
     averageTime: { type: Number, default: 0 },
     failureReasons: [
       {
-        reason: { type: String },
-        count: { type: Number },
+        reason: { type: String, default: ""},
+        count: { type: Number, default: 0 },
       },
     ],
   },

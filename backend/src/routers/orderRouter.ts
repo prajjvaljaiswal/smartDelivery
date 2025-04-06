@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import {
   getOrders,
   createOrder,
-  updateOrderStatus,
+  updateOrderStatus
 } from "../controllers/orderController.js";
 import Order from "../models/order.js";
 
@@ -10,7 +10,7 @@ const orderRouter = express.Router();
 
 orderRouter.get("/", getOrders);
 orderRouter.post("/assign", createOrder);
-orderRouter.put("/:id/status", updateOrderStatus);
+orderRouter.put("/:id/status", updateOrderStatus)
 
 orderRouter.get("/count", async (req: Request, res: Response) => {
   // /api/orders/heatmap.ts
