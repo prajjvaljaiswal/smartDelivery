@@ -16,7 +16,11 @@
 
         npm install
         npm run dev
+   
 
+**Here is Postman URL
+        https://hackathon-1988.postman.co/workspace/My-Workspace~05eb9615-d0fe-4f6e-8544-0dfa8d4257b4/collection/40849698-befa6973-3933-48ae-a7df-48d3c9d7229d?action=share&creator=40849698
+        
 
 🔌 API Endpoints
 🔹 Partner Routes
